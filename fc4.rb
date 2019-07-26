@@ -2,14 +2,14 @@
 class Fc4 < Formula
   desc 'A tool for authoring, publishing, and maintaining C4 software architecture diagrams.'
   homepage 'https://fundingcircle.github.io/fc4-framework/tool/'
-  version '2019-07-10_1868'
+  version '2019-07-26_1982'
 
   if OS.linux?
-    url 'https://github.com/FundingCircle/fc4-framework/releases/download/release_2019-07-10_1868/fc4-tool-linux-amd64-e0af83d.tar.gz'
-    sha256 'c7dc72495d195fac87f7094bb5cfaca2994c050bc87d011402cf05d46cb8f772'
+    url 'https://github.com/FundingCircle/fc4-framework/releases/download/release_2019-07-26_1982/fc4-tool-linux-amd64-bc5542c.tar.gz'
+    sha256 'a9e79d4ef86be08eca53134ceb817e3ba7923229160cec8a7bbe5779d43dba87'
   else
-    url 'https://github.com/FundingCircle/fc4-framework/releases/download/release_2019-07-10_1868/fc4-tool-macos-amd64-e0af83d.tar.gz'
-    sha256 'aaf3f7b61fef6b7605feb0f463b6341c269bb4e067860c595d2a3e1d9266c0c7'
+    url 'https://github.com/FundingCircle/fc4-framework/releases/download/release_2019-07-26_1982/fc4-tool-macos-amd64-bc5542c.tar.gz'
+    sha256 '5a4bed359e5deb31e0acf1ed3954bfcdf615038939e4a5eb6f251ae315beb443'
   end
 
   bottle :unneeded
