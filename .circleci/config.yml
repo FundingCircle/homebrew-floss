@@ -4,7 +4,7 @@ jobs:
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
     macos:
-      xcode: "10.3.0"
+      xcode: "10.2.1"
     steps:
       - checkout
       - run:
