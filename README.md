@@ -18,6 +18,14 @@ There are two different ways to install the formulae in this repo:
    $ brew install fc4
    ```
 
+
+## Copyright & License
+
+Copyright © 2019 Funding Circle Ltd.
+
+Distributed under [the BSD 3-Clause License](LICENSE).
+
+
 [borkdude-brew-repo]: https://github.com/borkdude/homebrew-brew
 [floss]: https://en.wikipedia.org/wiki/Free_and_open-source_software
 [homebrew]: https://brew.sh/
