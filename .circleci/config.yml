@@ -1,6 +1,26 @@
 version: 2
 jobs:
-  build:
+  audit:
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
+    macos:
+      xcode: "10.2.1"
+    steps:
+      - checkout
+      - restore_cache:
+          key: homebrew-floss-{{ checksum ".circleci/config.yml" }}
+      - run:
+          name: Lint formulae
+          command: |
+            for formula in ./*.rb
+            do
+              brew audit --strict $formula
+            done
+      - save_cache:
+          key: homebrew-floss-{{ checksum ".circleci/config.yml" }}
+          paths:
+            - /usr/local/Homebrew/Library/Homebrew/vendor/bundle
+  install:
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
     macos:
@@ -14,3 +34,9 @@ jobs:
             do
               brew install --display-times --verbose $formula
             done
+workflows:
+  version: 2
+  ci:
+    jobs:
+      - audit
+      - install
