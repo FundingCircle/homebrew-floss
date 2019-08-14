@@ -45,9 +45,9 @@ jobs:
 workflows:
   ci:
     jobs:
-      - install
+      - install:
           name: "macos-high-sierra"
           version: "10.2.3"
-      - install
+      - install:
           name: "macos-mojave"
           version: "10.3.0"
