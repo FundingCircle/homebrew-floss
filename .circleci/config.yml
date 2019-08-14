@@ -1,10 +1,15 @@
-version: 2
-jobs:
-  audit:
+version: 2.1
+
+executors:
+  macos:
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
     macos:
       xcode: "10.2.1"
+
+jobs:
+  audit:
+    executor: macos
     steps:
       - checkout
       - restore_cache:
@@ -21,10 +26,7 @@ jobs:
           paths:
             - /usr/local/Homebrew/Library/Homebrew/vendor/bundle
   install:
-    environment:
-      HOMEBREW_NO_AUTO_UPDATE: 1
-    macos:
-      xcode: "10.2.1"
+    executor: macos
     steps:
       - checkout
       - run:
@@ -34,8 +36,8 @@ jobs:
             do
               brew install --display-times --verbose $formula
             done
+
 workflows:
-  version: 2
   ci:
     jobs:
       - audit
