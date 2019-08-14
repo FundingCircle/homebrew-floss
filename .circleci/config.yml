@@ -45,19 +45,41 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Test installing formulae
+          name: Install formulae
           command: |
             for formula in ./*.rb
             do
               brew install --display-times --verbose $formula
+            done
+  test:
+    executor: macos
+    parameters:
+      version:
+        description: "Xcode version"
+        default: "10.2.1"
+        type: string
+    steps:
+      - checkout
+      - run:
+          name: Test formulae
+          command: |
+            for formula in ./*.rb
+            do
+              brew test --verbose $formula
             done
 
 workflows:
   ci:
     jobs:
       - install:
-          name: "macos-high-sierra"
+          name: "install-macos-high-sierra"
           version: "10.2.3"
       - install:
-          name: "macos-mojave"
+          name: "install-macos-mojave"
+          version: "10.3.0"
+      - test:
+          name: "test-macos-high-sierra"
+          version: "10.2.3"
+      - test:
+          name: "test-macos-mojave"
           version: "10.3.0"
