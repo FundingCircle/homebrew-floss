@@ -35,22 +35,6 @@ jobs:
           key: homebrew-floss-{{ checksum ".circleci/config.yml" }}
           paths:
             - /usr/local/Homebrew/Library/Homebrew/vendor/bundle
-  install:
-    executor: macos
-    parameters:
-      version:
-        description: "Xcode version"
-        default: "10.2.1"
-        type: string
-    steps:
-      - checkout
-      - run:
-          name: Install formulae
-          command: |
-            for formula in ./*.rb
-            do
-              brew install --display-times --verbose $formula
-            done
   test:
     executor: macos
     parameters:
@@ -65,18 +49,13 @@ jobs:
           command: |
             for formula in ./*.rb
             do
+              brew install --display-times --verbose $formula
               brew test --verbose $formula
             done
 
 workflows:
   ci:
     jobs:
-      - install:
-          name: "install-macos-high-sierra"
-          version: "10.2.3"
-      - install:
-          name: "install-macos-mojave"
-          version: "10.3.0"
       - test:
           name: "test-macos-high-sierra"
           version: "10.2.3"
