@@ -25,7 +25,7 @@ jobs:
       - restore_cache:
           key: homebrew-floss-{{ checksum ".circleci/config.yml" }}
       - run:
-          name: Lint formulae
+          name: Audit formulae
           command: |
             for formula in ./*.rb
             do
@@ -56,6 +56,16 @@ jobs:
 workflows:
   ci:
     jobs:
+      # These jobs will fail until the format of fc4-tool release names
+      # is changed to remove underscores in the version component.
+      # This change is being tracked in:
+      # https://github.com/FundingCircle/fc4-framework/issues/193
+      #- audit:
+      #    name: "audit-macos-high-sierra"
+      #    version: "10.2.3"
+      #- test:
+      #    name: "audit-macos-mojave"
+      #    version: "10.3.0"
       - test:
           name: "test-macos-high-sierra"
           version: "10.2.3"
