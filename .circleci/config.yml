@@ -40,5 +40,4 @@ jobs:
 workflows:
   ci:
     jobs:
-      - audit
       - install
