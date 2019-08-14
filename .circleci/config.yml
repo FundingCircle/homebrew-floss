@@ -5,7 +5,12 @@ executors:
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
     macos:
-      xcode: "10.2.1"
+      xcode: << parameters.version >>
+    parameters:
+      version:
+        description: "Xcode version"
+        default: "10.2.1"
+        type: string
 
 jobs:
   audit:
@@ -41,3 +46,8 @@ workflows:
   ci:
     jobs:
       - install
+          name: "macos-high-sierra"
+          version: "10.2.3"
+      - install
+          name: "macos-mojave"
+          version: "10.3.0"
