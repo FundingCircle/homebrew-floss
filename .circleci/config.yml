@@ -37,6 +37,11 @@ jobs:
             - /usr/local/Homebrew/Library/Homebrew/vendor/bundle
   install:
     executor: macos
+    parameters:
+      version:
+        description: "Xcode version"
+        default: "10.2.1"
+        type: string
     steps:
       - checkout
       - run:
