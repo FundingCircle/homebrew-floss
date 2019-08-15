@@ -63,7 +63,7 @@ workflows:
       #- audit:
       #    name: "audit-macos-high-sierra"
       #    version: "10.2.3"
-      #- test:
+      #- audit:
       #    name: "audit-macos-mojave"
       #    version: "10.3.0"
       - test:
