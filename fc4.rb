@@ -2,14 +2,14 @@
 class Fc4 < Formula
   desc "Tool for C4 software architecture diagrams"
   homepage "https://fundingcircle.github.io/fc4-framework/tool/"
-  version "2019-07-26_1982"
+  version "2019.09.10-c987903"
 
   if OS.linux?
-    url "https://github.com/FundingCircle/fc4-framework/releases/download/release_2019-07-26_1982/fc4-tool-linux-amd64-bc5542c.tar.gz"
-    sha256 "a9e79d4ef86be08eca53134ceb817e3ba7923229160cec8a7bbe5779d43dba87"
+    url "https://github.com/FundingCircle/fc4-framework/releases/download/release_2019.09.10-c987903/fc4-tool-linux-amd64-2019.09.10-c987903.tar.gz"
+    sha256 "c0ab642e6c16633abf6a289d39531c460bc218bb3d8131829769945b15d561fc"
   else
-    url "https://github.com/FundingCircle/fc4-framework/releases/download/release_2019-07-26_1982/fc4-tool-macos-amd64-bc5542c.tar.gz"
-    sha256 "5a4bed359e5deb31e0acf1ed3954bfcdf615038939e4a5eb6f251ae315beb443"
+    url "https://github.com/FundingCircle/fc4-framework/releases/download/release_2019.09.10-c987903/fc4-tool-macos-amd64-2019.09.10-c987903.tar.gz"
+    sha256 "dbe77d268f037c479214aad95ae5b694557252a3894aefc5c7432630ae5c1bd1"
   end
 
   bottle :unneeded
@@ -23,6 +23,14 @@ class Fc4 < Formula
   def install
     bin.install "fc4"
     bin.install "fc4-render"
+
+    # brew audit doesn’t like this; it prints:
+    #   Non-executables were installed to "/usr/local/opt/fc4/bin"
+    # ...it wants jar files installed to libexec, which we should be able to do but first we’ll need
+    # to update the script `fc4` which lives in the fc4-framework repo; right now it expects the jar
+    # file to be in the same dir as the script; we’ll need to change it to maybe look in a few
+    # different places? I’m not sure; I want to continue to support the manual install case for
+    # those who cannot or prefer not to use Homebrew.
     bin.install "fc4.jar"
   end
 

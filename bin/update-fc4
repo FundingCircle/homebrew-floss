@@ -4,22 +4,24 @@
 
 set -e
 
-tags=$(curl --silent "https://api.github.com/repos/fundingcircle/fc4-framework/tags")
-
-tag_name=$(echo "$tags" | jq -r '.[0].name')
-version=${tag_name:8}
-
-tag_sha=$(echo "$tags" | jq -r '.[0].commit.sha')
-short_tag_sha=${tag_sha:0:7}
+# This used to retrieve the /tags resource but for some reason those aren’t sorted the same as
+# the /releases resource. If we want the latest release, we need to use this resource.
+releases=$(curl --silent "https://api.github.com/repos/fundingcircle/fc4-framework/releases?per-page=1")
+tag_name=$(echo "$releases" | jq -r '.[0].tag_name')
+version=${tag_name:8} # remove the prefix `release_` from the tag name to yield the version identifier
 
 # Example URL:
-#   https://github.com/FundingCircle/fc4-framework/releases/download/release_2019-07-10_1868/fc4-tool-macos-amd64-e0af83d.tar.gz
+#   https://github.com/FundingCircle/fc4-framework/releases/download/release_2019-07-10_1868/fc4-tool-macos-amd64-2019.09.10-e0af83d.tar.gz
 
-linux_filename="fc4-tool-linux-amd64-$short_tag_sha.tar.gz"
-macos_filename="fc4-tool-macos-amd64-$short_tag_sha.tar.gz"
-base_url="https://github.com/FundingCircle/fc4-framework/releases/download/"
+linux_filename="fc4-tool-linux-amd64-${version}.tar.gz"
+macos_filename="fc4-tool-macos-amd64-${version}.tar.gz"
+base_url="https://github.com/FundingCircle/fc4-framework/releases/download"
 linux_url="$base_url/$tag_name/$linux_filename"
 macos_url="$base_url/$tag_name/$macos_filename"
+
+# This is a little silly; it’s really only here to prevent shellcheck from thinking that these two
+# variables are unused.
+echo "$linux_url and $macos_url" >> /dev/null
 
 for os in macos linux; do
   fv="${os}_filename"
