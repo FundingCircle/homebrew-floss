@@ -22,6 +22,14 @@ class Fc4 < Formula
   def install
     bin.install "fc4"
     bin.install "fc4-render"
+
+    # brew audit doesn’t like this; it prints:
+    #   Non-executables were installed to "/usr/local/opt/fc4/bin"
+    # ...it wants jar files installed to libexec, which we should be able to do but first we’ll need
+    # to update the script `fc4` which lives in the fc4-framework repo; right now it expects the jar
+    # file to be in the same dir as the script; we’ll need to change it to maybe look in a few
+    # different places? I’m not sure; I want to continue to support the manual install case for
+    # those who cannot or prefer not to use Homebrew.
     bin.install "fc4.jar"
   end
 
