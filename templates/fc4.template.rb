@@ -2,14 +2,8 @@ class Fc4 < Formula
   desc "Tool for C4 software architecture diagrams"
   homepage "https://fundingcircle.github.io/fc4-framework/tool/"
   version "${VERSION}"
-
-  if OS.linux?
-    url "https://github.com/FundingCircle/fc4-framework/releases/download/${TAG_NAME}/${LINUX_FILENAME}"
-    sha256 "${LINUX_SHA}"
-  else
-    url "https://github.com/FundingCircle/fc4-framework/releases/download/${TAG_NAME}/${MACOS_FILENAME}"
-    sha256 "${MACOS_SHA}"
-  end
+  url "${PACKAGE_URL}"
+  sha256 "${PACKAGE_SHA}"
 
   bottle :unneeded
   depends_on :java => "1.8+"
@@ -21,7 +15,6 @@ class Fc4 < Formula
 
   def install
     bin.install "fc4"
-    bin.install "fc4-render"
 
     # brew audit doesn’t like this; it prints:
     #   Non-executables were installed to "/usr/local/opt/fc4/bin"

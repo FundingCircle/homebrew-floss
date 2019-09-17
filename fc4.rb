@@ -2,15 +2,9 @@
 class Fc4 < Formula
   desc "Tool for C4 software architecture diagrams"
   homepage "https://fundingcircle.github.io/fc4-framework/tool/"
-  version "2019.09.10-c987903"
-
-  if OS.linux?
-    url "https://github.com/FundingCircle/fc4-framework/releases/download/release_2019.09.10-c987903/fc4-tool-linux-amd64-2019.09.10-c987903.tar.gz"
-    sha256 "c0ab642e6c16633abf6a289d39531c460bc218bb3d8131829769945b15d561fc"
-  else
-    url "https://github.com/FundingCircle/fc4-framework/releases/download/release_2019.09.10-c987903/fc4-tool-macos-amd64-2019.09.10-c987903.tar.gz"
-    sha256 "dbe77d268f037c479214aad95ae5b694557252a3894aefc5c7432630ae5c1bd1"
-  end
+  version "2019.09.17-6da6ef8"
+  url "https://github.com/FundingCircle/fc4-framework/releases/download/release_2019.09.17-6da6ef8/fc4-tool-2019.09.17-6da6ef8.tar.gz"
+  sha256 "24c8e05d286fbb3c3c3816e4f54e905f8fd0e0342f62b21fa41612880776ee82"
 
   bottle :unneeded
   depends_on :java => "1.8+"
@@ -22,7 +16,6 @@ class Fc4 < Formula
 
   def install
     bin.install "fc4"
-    bin.install "fc4-render"
 
     # brew audit doesn’t like this; it prints:
     #   Non-executables were installed to "/usr/local/opt/fc4/bin"
