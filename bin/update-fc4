@@ -4,11 +4,10 @@
 
 set -eu -o pipefail
 
-# This used to retrieve the /tags resource but for some reason those aren’t sorted the same as
-# the /releases resource. If we want the latest release, we need to use this resource.
-releases=$(curl --silent "https://api.github.com/repos/fundingcircle/fc4-framework/releases?per_page=1")
-package_url=$(echo "$releases" | jq -r '.[0].assets[0].browser_download_url')
-tag_name=$(echo "$releases" | jq -r '.[0].tag_name')
+# docs for this API resource: https://developer.github.com/v3/repos/releases/#get-the-latest-release
+releases=$(curl --silent "https://api.github.com/repos/fundingcircle/fc4-framework/releases/latest")
+package_url=$(echo "$releases" | jq -r '.assets[0].browser_download_url')
+tag_name=$(echo "$releases" | jq -r '.tag_name')
 version=${tag_name:8} # remove the prefix `release_` from the tag name to yield the version identifier
 
 # Example URL:
