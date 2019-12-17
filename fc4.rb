@@ -2,9 +2,9 @@
 class Fc4 < Formula
   desc "Tool for C4 software architecture diagrams"
   homepage "https://fundingcircle.github.io/fc4-framework/tool/"
-  version "2019.10.04-117ecb9"
-  url "https://github.com/FundingCircle/fc4-framework/releases/download/release_2019.10.04-117ecb9/fc4-tool-2019.10.04-117ecb9.tar.gz"
-  sha256 "eb54afe74d20b84f7425622f50ae1eafb451d0dbdacf441a1861184bc0b100cb"
+  version "2019.12.17-aaa9454"
+  url "https://github.com/FundingCircle/fc4-framework/releases/download/release_2019.12.17-aaa9454/fc4-tool-2019.12.17-aaa9454.tar.gz"
+  sha256 "f063934107e3dfcf0883e2f7ce4512284d4f60f2d4ada4966af729ea4c4833b6"
 
   bottle :unneeded
   depends_on :java => "1.8+"
