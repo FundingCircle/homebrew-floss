@@ -9,7 +9,7 @@ executors:
     parameters:
       version:
         description: "Xcode version"
-        default: "10.2.1"
+        default: "11.3.0"
         type: string
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
     parameters:
       version:
         description: "Xcode version"
-        default: "10.2.1"
+        default: "11.3.0"
         type: string
     steps:
       - checkout
@@ -66,9 +66,15 @@ workflows:
       #- audit:
       #    name: "audit-macos-mojave"
       #    version: "10.3.0"
+      #- audit:
+      #    name: "audit-macos-catalina"
+      #    version: "11.3.0"
       - test:
           name: "test-macos-high-sierra"
           version: "10.2.3"
       - test:
           name: "test-macos-mojave"
           version: "10.3.0"
+      - test:
+          name: "test-macos-catalina"
+          version: "11.3.0"
