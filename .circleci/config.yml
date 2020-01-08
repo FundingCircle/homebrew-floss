@@ -72,3 +72,6 @@ workflows:
       - test:
           name: "test-macos-mojave"
           version: "10.3.0"
+      - test:
+          name: "test-macos-catalina"
+          version: "11.3.0"
