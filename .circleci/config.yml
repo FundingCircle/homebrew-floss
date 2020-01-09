@@ -5,21 +5,23 @@ executors:
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
     macos:
-      xcode: << parameters.version >>
+      xcode: << parameters.xcode-version >>
     parameters:
-      version:
-        description: "Xcode version"
-        default: "11.3.0"
-        type: string
+      xcode-version:
+        description: Determines the version of MacOS that will be used for a job.
+        type: enum
+        enum:
+          # See https://circleci.com/docs/2.0/testing-ios/#supported-xcode-versions
+          - "10.1.0" # MacOS “High Sierra” 10.13.6
+          - "11.1.0" # MacOS “Mojave” 10.14.4
+          - "11.3.0" # MacOS “Catalina” 10.15.1
 
 jobs:
   audit:
-    executor: macos
+    executor: << parameters.e >>
     parameters:
-      version:
-        description: "Xcode version"
-        default: "11.3.0"
-        type: string
+      e:
+        type: executor
     steps:
       - checkout
       - restore_cache:
@@ -35,13 +37,12 @@ jobs:
           key: homebrew-floss-{{ checksum ".circleci/config.yml" }}
           paths:
             - /usr/local/Homebrew/Library/Homebrew/vendor/bundle
+
   test:
-    executor: macos
+    executor: << parameters.e >>
     parameters:
-      version:
-        description: "Xcode version"
-        default: "10.2.1"
-        type: string
+      e:
+        type: executor
     steps:
       - checkout
       - run:
@@ -54,27 +55,34 @@ jobs:
             done
 
 workflows:
-  ci:
+  Test:
     jobs:
-      # These jobs will fail until the format of fc4-tool release names
-      # is changed to remove underscores in the version component.
-      # This change is being tracked in:
-      # https://github.com/FundingCircle/fc4-framework/issues/193
-      #- audit:
-      #    name: "audit-macos-high-sierra"
-      #    version: "10.2.3"
-      #- audit:
-      #    name: "audit-macos-mojave"
-      #    version: "10.3.0"
-      #- audit:
-      #    name: "audit-macos-catalina"
-      #    version: "11.3.0"
       - test:
-          name: "test-macos-high-sierra"
-          version: "10.2.3"
+          name: Test (MacOS High Sierra)
+          e:
+            name: macos
+            xcode-version: "10.1.0"
       - test:
-          name: "test-macos-mojave"
-          version: "10.3.0"
+          name: Test (MacOS Mojave)
+          e:
+            name: macos
+            xcode-version: "11.1.0"
       - test:
-          name: "test-macos-catalina"
-          version: "11.3.0"
+          name: Test (MacOS Catalina)
+          e:
+            name: macos
+            xcode-version: "11.3.0"
+
+  # This workflow is commented out because these jobs will fail until the problem described here:
+  # https://github.com/FundingCircle/homebrew-floss/issues/9 is fixed.
+  # Audit:
+  #   jobs:
+  #     - audit:
+  #        name: Audit (MacOS High Sierra)
+  #        xcode-version: "10.2.3"
+  #     - audit:
+  #        name: Audit (MacOS Mojave)
+  #        xcode-version: "10.3.0"
+  #     - audit:
+  #        name: Audit (MacOS Catalina)
+  #        xcode-version: "11.3.0"
