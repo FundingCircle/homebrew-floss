@@ -48,6 +48,7 @@ jobs:
       - run:
           name: Test formulae
           command: |
+            git -C "$(brew --repo homebrew/core)" fetch --unshallow
             for formula in ./*.rb
             do
               brew install --display-times --verbose $formula
