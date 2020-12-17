@@ -7,7 +7,7 @@ class Fc4 < Formula
   sha256 "6636e51a5f42ddc99ecbae11e6fa5e846b42f951e75a7720398513037028cb53"
 
   bottle :unneeded
-  depends_on :java => "1.8+"
+  depends_on "openjdk@8"
 
   resource "test_diagram_source" do
     url "https://raw.githubusercontent.com/FundingCircle/fc4-framework/c582061ef9d5ad6d680eed71cd55bb2d1e8c3230/docs/tool/fc4-tool-01-context.yaml"
